@@ -1,169 +1,147 @@
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Comic Neue', cursive, sans-serif;
-  background: linear-gradient(135deg, #85d8ce 0%, #4c6ef5 100%);
-  margin: 0;
-  padding: 10px; /* max 10px "margin" od okrajů na mobilech */
-  color: #333;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    font-family: 'Comic Neue', cursive, sans-serif;
+    background: linear-gradient(135deg, #add8e6 0%, #00008b 100%);
+    margin: 0;
+    padding: 10px;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
-  background: #fff;
-  width: calc(100vw - 20px);
-  height: calc(100vw - 20px);
-  max-width: calc(100vh - 20px);
-  max-height: calc(100vh - 20px);
-  aspect-ratio: 1 / 1;
-  border-radius: 50px;
-  padding: 3rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+    background: #fff;
+    width: calc(100vw - 20px);
+    height: calc(100vw - 20px);
+    max-width: calc(100vh - 20px);
+    max-height: calc(100vh - 20px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50px;
+    padding: 3rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
 }
 
-/* ✅ Na PC přidáme pevné 50px okraje zleva a zprava */
 @media (min-width: 700px) {
-  .container {
-    width: calc(100vw - 100px); /* 50px vlevo + 50px vpravo */
-    height: calc(100vw - 100px);
-    max-width: calc(100vh - 100px);
-    max-height: calc(100vh - 100px);
-  }
-  body {
-    padding: 0; /* odstraníme mobilní padding */
-  }
+    .container {
+        width: calc(100vw - 100px);
+        height: calc(100vw - 100px);
+        max-width: calc(100vh - 100px);
+        max-height: calc(100vh - 100px);
+    }
+
+    body {
+        padding: 0;
+    }
 }
 
-/* --- ostatní stylování --- */
 h1 {
-  text-align: center;
-  color: #264653;
-  margin-bottom: 2rem;
-  font-size: 2rem;
+    text-align: center;
+    color: #264653;
+    margin-bottom: 1.5rem;
+    font-size: 2.8rem;
 }
 
 .question {
-  margin-bottom: 2.5rem;
-  font-size: 1.3rem;
-  font-weight: 700;
-  max-width: 80%;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .answers {
-  list-style: none;
-  padding: 0;
-  margin-bottom: 2.5rem;
-  width: 100%;
-  max-width: 500px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
 }
 
 .answers li {
-  margin: 50px 0;
-  display: flex;
-  justify-content: center;
+    margin: 15px 0;
 }
 
-/* Styl pro každou jednu odpověď */
 label {
-  cursor: pointer;
-  user-select: none;
-  display: inline-block;
-  padding: 1.2rem 2.5rem;
-  background: #e9f5f7;
-  border-radius: 20px;
-  border: 3px solid transparent;
-  transition: all 0.3s ease;
-  font-size: 1.2rem;
-  font-weight: 700;
-  min-width: 280px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    user-select: none;
+    display: block;
+    padding: 0.8rem 1.5rem;
+    background: #e9f5f7;
+    border-radius: 100px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    margin: 0 0.5rem 15px 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* Radio buttony skryjeme, aby se klikalo na label/span */
-input[type="radio"] {
-  display: none;
+label:hover span {
+    background: #4c6ef5;
+    color: white;
+    border-radius: 100px;
+    padding: 0.8rem 1.5rem;
+    display: inline-block;
 }
 
-/* Když je radio zaškrtnuté, aplikuje se styl na následující <span> uvnitř toho samého label */
 input[type="radio"]:checked + span {
-  background: #8b5cf6 !important;   /* fialová */
-  color: white !important;
-  border: 4px solid #5b21b6 !important; /* tmavší fialový okraj */
-  transform: scale(1.05) !important;
-  box-shadow: 0 8px 16px rgba(139, 92, 246, 0.6) !important;
+    background: #4c6ef5;
+    color: white;
+    border-radius: 100px;
+    padding: 0.8rem 1.5rem;
+    display: inline-block;
 }
 
-/* Při najetí myší na label */
-label:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  background: #d4f1f4;
+input[type="radio"] {
+    display: none;
 }
 
-/* Styl tlačítka */
 button {
-  display: block;
-  margin: 0 auto;
-  padding: 1.2rem 3rem;
-  font-size: 1.3rem;
-  font-weight: 700;
-  background: #2a9d8f;
-  color: white;
-  border: none;
-  border-radius: 40px;
-  cursor: pointer;
-  box-shadow: 0 8px 16px rgba(42, 157, 143, 0.6);
-  transition: all 0.3s ease;
-  min-width: 200px;
+    display: block;
+    margin: 0 auto;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.25rem;
+    background: #2a9d8f;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(42, 157, 143, 0.6);
+    transition: background 0.3s ease;
 }
 
 button:hover:not(:disabled) {
-  background: #21867a;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(42, 157, 143, 0.7);
+    background: #21867a;
 }
 
 button:disabled {
-  background: #bbb;
-  cursor: default;
-  transform: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: #bbb;
+    cursor: default;
 }
 
 .feedback {
-  text-align: center;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  margin-top: 20px;
-  font-size: 1.2rem;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    margin-top: 15px;
 }
 
 .correct {
-  color: #2a9d8f;
+    color: #2a9d8f;
 }
 
 .wrong {
-  color: #e76f51;
+    color: #e76f51;
 }
 
 .score {
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-top: 2rem;
-  color: #264653;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    color: #264653;
 }

@@ -87,6 +87,8 @@ function loadQuestion() {
 
 submitBtn.addEventListener("click", () => {
   const selected = document.querySelector("input[name=answer]:checked");
+  if (!selected) return;
+
   const answerIndex = parseInt(selected.value);
   const correctIndex = quizQuestions[currentQuestion].correct;
 

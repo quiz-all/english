@@ -1,28 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Comic Neue', cursive, sans-serif;
   background: linear-gradient(135deg, #85d8ce 0%, #4c6ef5 100%);
   margin: 0;
-  padding: 0;
+  padding: 10px; /* max 10px "margin" od okrajů na mobilech */
   color: #333;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  box-sizing: border-box;
 }
 
 .container {
   background: #fff;
-  max-width: 800px;
-  width: 100%;
-  border-radius: 15px;
-  padding: 2rem 3rem;
+  width: calc(100vw - 20px);
+  height: calc(100vw - 20px);
+  max-width: calc(100vh - 20px);
+  max-height: calc(100vh - 20px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50px;
+  padding: 3rem;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  margin: 15px; /* minimální okraj od všech stran */
-  box-sizing: border-box;
+  overflow-y: auto;
 }
+
+/* ✅ Na PC přidáme pevné 50px okraje zleva a zprava */
+@media (min-width: 700px) {
+  .container {
+    width: calc(100vw - 100px); /* 50px vlevo + 50px vpravo */
+    height: calc(100vw - 100px);
+    max-width: calc(100vh - 100px);
+    max-height: calc(100vh - 100px);
+  }
+
+  body {
+    padding: 0; /* odstraníme mobilní padding */
+  }
+}
+
+/* --- ostatní stylování zůstává stejné --- */
 
 h1 {
   text-align: center;
@@ -42,7 +63,6 @@ h1 {
 }
 
 .answers li {
-  margin-bottom: 0.75rem;
   margin: 10px 0;
 }
 
@@ -94,7 +114,7 @@ button:disabled {
   text-align: center;
   font-weight: 700;
   margin-bottom: 1rem;
-  margin-top: 8px;
+  margin-top: 15px;
 }
 
 .correct {
@@ -111,12 +131,4 @@ button:disabled {
   font-weight: 700;
   margin-top: 1rem;
   color: #264653;
-}
-
-/* Mobilní zařízení – alespoň 10px okraj */
-@media (max-width: 500px) {
-  .container {
-    margin: 10px;
-    padding: 1rem;
-  }
 }

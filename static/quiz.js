@@ -1,4 +1,9 @@
-const quizQuestions = [
+/* ===========================
+   Otázky + náhodné pořadí
+   =========================== */
+
+// kompletní pole otázek (30 původních + 14 nových)
+const allQuestions = [
   { question: "What word shows what happened yesterday? 'I ___ to school.'", answers: ["go", "went", "going", "goes"], correct: 1 },
   { question: "Which word is a thing you can touch?", answers: ["happy", "book", "run", "quick"], correct: 1 },
   { question: "Choose the right sentence:", answers: ["She no like apples.", "She does not like apples.", "She no likes apple.", "She don't like apples."], correct: 1 },
@@ -33,82 +38,34 @@ const quizQuestions = [
   { question: "How many months are in a year?", answers: ["10", "11", "12", "13"], correct: 2 },
   { question: "What is the opposite of 'day'?", answers: ["night", "light", "sun", "moon"], correct: 0 },
   { question: "Which one is a pet?", answers: ["elephant", "dog", "lion", "tiger"], correct: 1 },
-  { question: "Choose the right word: Birds ___ in the sky.", answers: ["fly", "run", "swim", "jump"], correct: 0 }
+  { question: "Choose the right word: Birds ___ in the sky.", answers: ["fly", "run", "swim", "jump"], correct: 0 },
+
+  /* ===== 14 nových ===== */
+  { question: "Which word is an action?", answers: ["table", "run", "tree", "sun"], correct: 1 },
+  { question: "Choose the correct sentence:", answers: ["They is happy.", "They are happy.", "They am happy.", "They be happy."], correct: 1 },
+  { question: "Fill in the blank: The bird is ___ the tree.", answers: ["under", "in", "beside", "between"], correct: 1 },
+  { question: "Which one is a season?", answers: ["morning", "winter", "night", "minute"], correct: 1 },
+  { question: "How many letters are in the English alphabet?", answers: ["24", "25", "26", "27"], correct: 2 },
+  { question: "What do we wear on our head?", answers: ["shoes", "hat", "gloves", "socks"], correct: 1 },
+  { question: "Which word means 'fast'?", answers: ["slow", "quick", "late", "small"], correct: 1 },
+  { question: "Choose the word that is a shape:", answers: ["circle", "jump", "red", "loud"], correct: 0 },
+  { question: "What does a clock tell?", answers: ["temperature", "time", "music", "speed"], correct: 1 },
+  { question: "Which is a vegetable?", answers: ["apple", "carrot", "cookie", "juice"], correct: 1 },
+  { question: "Fill in the blank: He ___ a book every night.", answers: ["read", "reads", "reading", "is read"], correct: 1 },
+  { question: "What is the plural of 'mouse'?", answers: ["mouses", "mice", "mousees", "mous"], correct: 1 },
+  { question: "Which word is an adjective?", answers: ["run", "blue", "sing", "dog"], correct: 1 },
+  { question: "Choose the right sentence:", answers: ["There are five cat.", "There are five cats.", "There is five cats.", "There be five cats."], correct: 1 }
 ];
 
-const quizDiv = document.getElementById("quiz");
-const submitBtn = document.getElementById("submitBtn");
-const feedbackDiv = document.getElementById("feedback");
-const scoreDiv = document.getElementById("score");
-
-let currentQuestion = 0;
-let score = 0;
-
-function loadQuestion(index) {
-  feedbackDiv.textContent = "";
-  submitBtn.disabled = true;
-
-  const q = quizQuestions[index];
-  quizDiv.innerHTML = `
-    <div class="question" id="question">${index + 1}. ${q.question}</div>
-    <ul class="answers" role="radiogroup" aria-labelledby="question">
-      ${q.answers.map((ans, i) => `
-        <li>
-          <input type="radio" id="answer${i}" name="answer" value="${i}" />
-          <label for="answer${i}">${ans}</label>
-        </li>
-      `).join('')}
-    </ul>
-  `;
-
-  const radios = quizDiv.querySelectorAll('input[name="answer"]');
-  radios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      submitBtn.disabled = false;
-      feedbackDiv.textContent = "";
-    });
-  });
-}
-
-function showFeedback(isCorrect, correctAnswerText) {
-  if (isCorrect) {
-    feedbackDiv.textContent = "Good job! That is correct! 🎉";
-    feedbackDiv.className = "feedback correct";
-  } else {
-    feedbackDiv.textContent = `Oops! The right answer is: "${correctAnswerText}".`;
-    feedbackDiv.className = "feedback wrong";
+// jednoduché Fisher-Yates shuffle
+function shuffleArray(arr) {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
   }
+  return copy;
 }
 
-function showScore() {
-  quizDiv.innerHTML = "";
-  submitBtn.style.display = "none";
-  feedbackDiv.textContent = "";
-  scoreDiv.textContent = `Your final score: ${score} / ${quizQuestions.length}`;
-}
-
-submitBtn.addEventListener('click', () => {
-  const selected = document.querySelector('input[name="answer"]:checked');
-  if (!selected) return;
-
-  const answerIndex = Number(selected.value);
-  const correctIndex = quizQuestions[currentQuestion].correct;
-
-  const isCorrect = answerIndex === correctIndex;
-  if (isCorrect) score++;
-
-  showFeedback(isCorrect, quizQuestions[currentQuestion].answers[correctIndex]);
-
-  submitBtn.disabled = true;
-
-  setTimeout(() => {
-    currentQuestion++;
-    if (currentQuestion < quizQuestions.length) {
-      loadQuestion(currentQuestion);
-    } else {
-      showScore();
-    }
-  }, 2500);
-});
-
-loadQuestion(currentQuestion);
+// náhodně promíchané pořadí pro kvíz
+const quizQuestions = shuffleArray(allQuestions);

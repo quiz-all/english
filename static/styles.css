@@ -8,18 +8,20 @@ body {
   color: #333;
   display: flex;
   justify-content: center;
-  align-items: center; /* vycentrování na střed */
+  align-items: center;
   min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .container {
   background: #fff;
-  max-width: 600px;
-  width: 90%;
+  max-width: 800px;
+  width: 100%;
   border-radius: 15px;
   padding: 2rem 3rem;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  margin: 0 auto; /* vycentrování horizontálně */
+  margin: 15px; /* minimální okraj od všech stran */
+  box-sizing: border-box;
 }
 
 h1 {
@@ -41,7 +43,7 @@ h1 {
 
 .answers li {
   margin-bottom: 0.75rem;
-  margin: 10px 0; /* minimální margin pro odpovědi */
+  margin: 10px 0;
 }
 
 label {
@@ -92,7 +94,7 @@ button:disabled {
   text-align: center;
   font-weight: 700;
   margin-bottom: 1rem;
-  margin-top: 8px; /* posun "dobre" a "spatne" o 8px dolů */
+  margin-top: 8px;
 }
 
 .correct {
@@ -111,10 +113,10 @@ button:disabled {
   color: #264653;
 }
 
+/* Mobilní zařízení – alespoň 10px okraj */
 @media (max-width: 500px) {
   .container {
-    width: calc(100% - 10px); /* 5px z každé strany */
-    padding: 1rem;            /* menší padding */
-    margin: 0 5px;            /* odsazení 5px od okrajů */
+    margin: 10px;
+    padding: 1rem;
   }
-  }
+}
